@@ -80,8 +80,7 @@ namespace BananaSongClone.Steps
         {
             var gmailMainPage = new GmailMainPage();
             gmailMainPage.ClickToComposeNewEmail();
-            var newEmail = new EmailObject();
-            newEmail.CreateNewEmail(recipient, title, text);
+            var newEmail = new EmailObject(recipient, title, text);
         }
 
         [Given(@"User saves a new email to drafts")]
@@ -92,32 +91,32 @@ namespace BananaSongClone.Steps
             gmailMainPage.ClickCloseButton();
         }
 
-        [When(@"User send the draft email with (.*) title")]
-        public void WhenUserSendTheDraftEmailToNewReceipenEmailRecipientEmail(string newTitle)
+        [When(@"User send the draft email to (.*) with (.*) title and (.*) text")]
+        public void WhenUserSendTheDraftEmailToNewReceipenEmailRecipientEmail(string recipient, string newTitle, string text)
         {
-            var email = new EmailObject();
+            var email = new EmailObject(recipient, newTitle, text);
             email.openEmailByTitle(newTitle);
-            email.SendAnEmail();
+            email.Send();
         }
 
-        [Then(@"New email with (.*) title is in draft folder")]
-        public void ThenNewEmailWithNewTitleTitleIsInDraftFolder(string newTitle)
+        [Then(@"New email to (.*) with (.*) title and (.*) text is in draft folder")]
+        public void ThenNewEmailWithNewTitleTitleIsInDraftFolder(string recipient, string newTitle, string text)
         {
-            var email = new EmailObject();
+            var email = new EmailObject(recipient, newTitle, text);
             Assert.AreEqual(email.searchEmailsByTitleAndReturnQuantity("in:draft " + newTitle), 1);
         }
 
-        [Then(@"Email with (.*) title is no longer in draft folder")]
-        public void ThenEmailWithNewTitleTitleIsNoLongerInDraftFolder(string newTitle)
+        [Then(@"Email to (.*) with (.*) title and (.*) text is no longer in draft folder")]
+        public void ThenEmailWithNewTitleTitleIsNoLongerInDraftFolder(string recipient, string newTitle, string text)
         {
-            var email = new EmailObject();
+            var email = new EmailObject(recipient, newTitle, text);
             Assert.AreEqual(email.searchEmailsByTitleAndReturnQuantity("in:draft " + newTitle), 0);
         }
 
-        [Then(@"Email with (.*) title is in sent folder")]
-        public void ThenEmailWithNewTitleTitleIsInSentFolder(string newTitle)
+        [Then(@"Email to (.*) with (.*) title and (.*) text is in sent folder")]
+        public void ThenEmailWithNewTitleTitleIsInSentFolder(string recipient, string newTitle, string text)
         {
-            var email = new EmailObject();
+            var email = new EmailObject(recipient, newTitle, text);
             Assert.AreEqual(email.searchEmailsByTitleAndReturnQuantity("in:sent " + newTitle), 0);
         }       
     }

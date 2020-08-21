@@ -11,5 +11,7 @@ namespace BananaSongClone
         private static NameValueCollection Settings => ConfigurationManager.GetSection("Settings") as NameValueCollection;
 
         public static string Url => Settings["Url"];
+        public static string Login => Settings["Login"];
+        public static string Password => Settings["Password"];
     }
 }

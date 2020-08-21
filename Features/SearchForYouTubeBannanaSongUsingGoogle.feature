@@ -33,13 +33,13 @@ Scenario: Create a new email and save as a draft
     Given User is signed in into Gmail with mentoringepam@gmail.com username and 223218Qwerty password
 	When User creates new email to send to test@gmail.com with mentoring title and test text
 	And User saves a new email to drafts
-    Then New email with newTitle title is in draft folder
+    Then New email to test@gmail.com with newTitle title and 123 text is in draft folder
 
 Scenario: Send an email from the draft folder
     Given User is signed in into Gmail with mentoringepam@gmail.com username and 223218Qwerty password
 	And User creates new email to send to test@gmail.com with mentoring title and test text
 	And User saves a new email to drafts
 	And User is in the draft folder
-	When User send the draft email with newTitle title
-	Then Email with newTitle title is no longer in draft folder
-	And Email with newTitle title is in sent folder
+	When User send the draft email to test@gmail.com with newTitle title and 123 text
+	Then Email to test@gmail.com with newTitle title and 123 text is no longer in draft folder
+	And Email to test@gmail.com with newTitle title and 123 text is in sent folder

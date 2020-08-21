@@ -9,26 +9,26 @@ namespace BananaSongTest.BusinessObjects
         public string status;
         public string type;
         public string subject;
+        public string to;
+        public string text;
 
-        public void CreateNewEmail(string to, string subject, string text, bool attachment = false, Attachment attachmentToAdd = null)
+        public EmailObject(string to, string subject, string text, bool attachment = false, Attachment attachmentToAdd = null)
         {
             var gmailMainPage = new GmailMainPage();
             gmailMainPage.PopulateToField(to);
             gmailMainPage.PopulateSubjectField(subject);
             gmailMainPage.PopulateTextField(text);
-            //attachment == true ? addAttachment(attachmentToAdd) : ;
-            if (attachment == true)
-            {
-                addAttachment(attachmentToAdd);
-            }
             this.subject = subject;
+            this.to = to;
+            this.text = text;
             this.creationTime = DateTime.Now;
         }
 
-        public void SendAnEmail()
+        public EmailObject Send()
         {
             var gmailMainPage = new GmailMainPage();
             gmailMainPage.ClickSendEmailButton();
+            return this;
         }
 
         public int searchEmailsByTitleAndReturnQuantity(string title)
